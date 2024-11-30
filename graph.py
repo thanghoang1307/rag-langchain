@@ -96,7 +96,7 @@ async def getGraph():
             "Không bao giờ được hỏi khách hỏi xong chưa và xin phép dừng cuộc hội thoại"
             "\n\n"
         )
-        response = llm_with_tools.invoke([SystemMessage(system_message_content)] + [state["messages"]])
+        response = llm_with_tools.invoke([SystemMessage(system_message_content)] + state["messages"])
         # MessagesState appends messages to state instead of overwriting
         return {"messages": [response]}
 
