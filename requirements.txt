@@ -1,0 +1,10 @@
+langchain
+langchain-openai
+langchain_community
+langchain-core
+langchain-chroma
+langgraph
+flask
+gunicorn
+pypdf
+python-dotenv
