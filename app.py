@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException
-from typing import Dict
+from pydantic import BaseModel
 from graph import getGraph
 
 app = FastAPI()
