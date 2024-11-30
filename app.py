@@ -1,5 +1,9 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+from langchain_community.document_loaders import PyPDFLoader
+from langchain_chroma import Chroma
+from langchain_openai import OpenAIEmbeddings
+from langchain.text_splitter import CharacterTextSplitter
 from graph import getGraph
 import os
 
@@ -18,6 +22,37 @@ async def chat(chat_request: ChatRequest):
         config = {"configurable": {"thread_id": threadId}}
         response = await graph.ainvoke({"messages": messages},config=config)
         return {"answer": response["messages"][-1].content}
+    except Exception as e:
+        return {"error": str(e)}
+
+@app.post("/generate-vector")
+async def generateVector():
+    try:
+        loader = PyPDFLoader("https://my-chatbot-deployment-bucket.s3.ap-southeast-1.amazonaws.com/masterigrandview.pdf")
+
+        #Load the document by calling loader.load()
+        pages = loader.load()
+
+        # 2. Splitter
+        text_splitter = CharacterTextSplitter(
+            separator="\n",
+            chunk_size=1000,
+            chunk_overlap=150,
+            length_function=len
+        )
+
+        docs = text_splitter.split_documents(pages)
+        embeddings = OpenAIEmbeddings(
+        model="text-embedding-3-large",
+        )
+
+        persist_directory = './docs/chroma/'
+
+        vectordb = Chroma.from_documents(
+            documents=docs,
+            embedding=embeddings,
+            persist_directory=persist_directory
+        )
     except Exception as e:
         return {"error": str(e)}
 

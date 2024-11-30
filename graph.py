@@ -16,32 +16,6 @@ import getpass
 import os
 
 async def getGraph():
-    # loader = PyPDFLoader("https://my-chatbot-deployment-bucket.s3.ap-southeast-1.amazonaws.com/masterigrandview.pdf")
-
-    #Load the document by calling loader.load()
-    # pages = loader.load()
-
-    # 2. Splitter
-
-    # text_splitter = CharacterTextSplitter(
-    #     separator="\n",
-    #     chunk_size=1000,
-    #     chunk_overlap=150,
-    #     length_function=len
-    # )
-
-    # docs = text_splitter.split_documents(pages)
-
-    # 3. Vector store
-    # load_dotenv()
-
-    # if not os.getenv("OPENAI_API_KEY"):
-    #     os.environ["OPENAI_API_KEY"] = getpass.getpass("Enter your OpenAI API key: ")
-
-    # os.environ["LANGSMITH_TRACING_V2"] = "true"
-    # if not os.getenv("LANGSMITH_API_KEY"):
-    #     os.environ["LANGSMITH_API_KEY"] = getpass.getpass()
-
     embeddings = OpenAIEmbeddings(
         model="text-embedding-3-large",
     )
@@ -51,24 +25,6 @@ async def getGraph():
     vectordb = Chroma(persist_directory=persist_directory, embedding_function=embeddings)
     print("Loaded existing vector store.")
 
-    # vectordb = Chroma.from_documents(
-    #         documents=docs,
-    #         embedding=embeddings,
-    #         persist_directory=persist_directory
-    #     )
-
-    # try:
-    #     # Try to load the existing vector store
-    #     vectordb = Chroma(persist_directory=persist_directory, embedding_function=embeddings)
-    #     print("Loaded existing vector store.")
-    # except Exception as e:
-    #     # Create the vector store
-    #     vectordb = Chroma.from_documents(
-    #         documents=docs,
-    #         embedding=embeddings,
-    #         persist_directory=persist_directory
-    #     )
-
     # Memory
     llm = ChatOpenAI(model_name="gpt-4o-mini", temperature=0)
 
@@ -77,7 +33,7 @@ async def getGraph():
     @tool(response_format="content_and_artifact")
     def retrieve(query: str):
         """Retrieve information related to a query."""
-        retrieved_docs = vectordb.similarity_search(query, k=2)
+        retrieved_docs = vectordb.similarity_search(query, k=5)
         serialized = "\n\n".join(
             (f"Source: {doc.metadata}\n" f"Content: {doc.page_content}")
             for doc in retrieved_docs
