@@ -16,21 +16,21 @@ import getpass
 import os
 
 async def getGraph():
-    loader = PyPDFLoader("https://my-chatbot-deployment-bucket.s3.ap-southeast-1.amazonaws.com/masterigrandview.pdf")
+    # loader = PyPDFLoader("https://my-chatbot-deployment-bucket.s3.ap-southeast-1.amazonaws.com/masterigrandview.pdf")
 
     #Load the document by calling loader.load()
-    pages = loader.load()
+    # pages = loader.load()
 
     # 2. Splitter
 
-    text_splitter = CharacterTextSplitter(
-        separator="\n",
-        chunk_size=1000,
-        chunk_overlap=150,
-        length_function=len
-    )
+    # text_splitter = CharacterTextSplitter(
+    #     separator="\n",
+    #     chunk_size=1000,
+    #     chunk_overlap=150,
+    #     length_function=len
+    # )
 
-    docs = text_splitter.split_documents(pages)
+    # docs = text_splitter.split_documents(pages)
 
     # 3. Vector store
     # load_dotenv()
