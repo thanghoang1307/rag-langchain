@@ -28,10 +28,11 @@ async def chat(chat_request: ChatRequest):
 @app.post("/generate-vector")
 async def generateVector():
     try:
-        loader = PyPDFLoader("https://my-chatbot-deployment-bucket.s3.ap-southeast-1.amazonaws.com/masterigrandview.pdf")
+        loader = PyPDFLoader("./mh_docs/masterigrandview.pdf")
 
         #Load the document by calling loader.load()
         pages = loader.load()
+        len(pages)
 
         # 2. Splitter
         # text_splitter = CharacterTextSplitter(
