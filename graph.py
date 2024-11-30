@@ -15,22 +15,22 @@ from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 import getpass
 import os
 
-def getGraph():
-    loader = PyPDFLoader("https://my-chatbot-deployment-bucket.s3.ap-southeast-1.amazonaws.com/masterigrandview.pdf")
+async def getGraph():
+    # loader = PyPDFLoader("https://my-chatbot-deployment-bucket.s3.ap-southeast-1.amazonaws.com/masterigrandview.pdf")
 
     #Load the document by calling loader.load()
-    pages = loader.load()
+    # pages = loader.load()
 
     # 2. Splitter
 
-    text_splitter = CharacterTextSplitter(
-        separator="\n",
-        chunk_size=1000,
-        chunk_overlap=150,
-        length_function=len
-    )
+    # text_splitter = CharacterTextSplitter(
+    #     separator="\n",
+    #     chunk_size=1000,
+    #     chunk_overlap=150,
+    #     length_function=len
+    # )
 
-    docs = text_splitter.split_documents(pages)
+    # docs = text_splitter.split_documents(pages)
 
     # 3. Vector store
     # load_dotenv()
@@ -48,17 +48,20 @@ def getGraph():
 
     persist_directory = './docs/chroma/'
 
-    try:
+    vectordb = Chroma(persist_directory=persist_directory, embedding_function=embeddings)
+    print("Loaded existing vector store.")
+
+    # try:
         # Try to load the existing vector store
-        vectordb = Chroma(persist_directory=persist_directory, embedding_function=embeddings)
-        print("Loaded existing vector store.")
-    except Exception as e:
+        # vectordb = Chroma(persist_directory=persist_directory, embedding_function=embeddings)
+        # print("Loaded existing vector store.")
+    # except Exception as e:
         # Create the vector store
-        vectordb = Chroma.from_documents(
-            documents=docs,
-            embedding=embeddings,
-            persist_directory=persist_directory
-        )
+        # vectordb = Chroma.from_documents(
+        #     documents=docs,
+        #     embedding=embeddings,
+        #     persist_directory=persist_directory
+        # )
 
     # Memory
     llm = ChatOpenAI(model_name="gpt-4o-mini", temperature=0)
@@ -74,8 +77,6 @@ def getGraph():
             for doc in retrieved_docs
         )
         return serialized, retrieved_docs
-
-
 
     # Step 1: Generate an AIMessage that may include a tool-call to be sent.
     def query_or_respond(state: MessagesState):
@@ -122,8 +123,6 @@ def getGraph():
         # Run
         response = llm.invoke(prompt)
         return {"messages": [response]}
-
-
 
     graph_builder.add_node(query_or_respond)
     graph_builder.add_node(tools)
