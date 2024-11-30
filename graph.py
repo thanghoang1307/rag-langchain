@@ -88,7 +88,15 @@ async def getGraph():
     def query_or_respond(state: MessagesState):
         """Generate tool call for retrieval or respond."""
         llm_with_tools = llm.bind_tools([retrieve])
-        response = llm_with_tools.invoke(state["messages"])
+        system_message_content = (
+            "Bạn là nhân viên chăm sóc khách hàng của Masterise Homes và bạn sẽ trả lời các câu hỏi của khách hàng về Công ty cũng như các dự án thuộc Công ty."
+            "Hãy dùng đại từ xưng hô gọi khách hàng là Anh/Chị, còn bạn dùng đại từ xưng hô là Em."
+            "Hãy trả lời câu hỏi của khách hàng một cách lịch sự và tôn trọng."
+            "Trong trường hợp khách hàng hỏi những câu hỏi không liên quan đến Công ty và dự án, hãy từ chối trả lời một cách lịch sự."
+            "Không bao giờ được hỏi khách hỏi xong chưa và xin phép dừng cuộc hội thoại"
+            "\n\n"
+        )
+        response = llm_with_tools.invoke([SystemMessage(system_message_content)] + [state["messages"]])
         # MessagesState appends messages to state instead of overwriting
         return {"messages": [response]}
 
