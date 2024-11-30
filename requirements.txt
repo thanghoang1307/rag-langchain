@@ -4,7 +4,9 @@ langchain_community
 langchain-core
 langchain-chroma
 langgraph
-flask
-gunicorn
+fastapi
+uvicorn
 pypdf
+pydantic
 python-dotenv
+typing
