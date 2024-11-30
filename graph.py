@@ -26,7 +26,7 @@ async def getGraph():
     print("Loaded existing vector store.")
 
     # Memory
-    llm = ChatOpenAI(model_name="gpt-4o-mini", temperature=0)
+    llm = ChatOpenAI(model_name="gpt-4o", temperature=0)
 
     graph_builder = StateGraph(MessagesState)
 
