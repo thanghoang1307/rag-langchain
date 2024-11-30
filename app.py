@@ -34,14 +34,14 @@ async def generateVector():
         pages = loader.load()
 
         # 2. Splitter
-        text_splitter = CharacterTextSplitter(
-            separator="\n",
-            chunk_size=1000,
-            chunk_overlap=150,
-            length_function=len
-        )
+        # text_splitter = CharacterTextSplitter(
+        #     separator="\n",
+        #     chunk_size=1000,
+        #     chunk_overlap=150,
+        #     length_function=len
+        # )
 
-        docs = text_splitter.split_documents(pages)
+        # docs = text_splitter.split_documents(pages)
         embeddings = OpenAIEmbeddings(
         model="text-embedding-3-large",
         )
@@ -49,7 +49,7 @@ async def generateVector():
         persist_directory = './docs/chroma/'
 
         vectordb = Chroma.from_documents(
-            documents=docs,
+            documents=pages,
             embedding=embeddings,
             persist_directory=persist_directory
         )
