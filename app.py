@@ -6,7 +6,7 @@ import os
 app = FastAPI()
 
 class ChatRequest(BaseModel):
-    messages: dict
+    messages: list
     thread_id: str
 
 @app.post("/chat")
