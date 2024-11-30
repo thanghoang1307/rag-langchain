@@ -6,12 +6,12 @@ import os
 app = FastAPI()
 
 class ChatRequest(BaseModel):
-    question: str
+    messages: dict
     thread_id: str
 
 @app.post("/chat")
 async def chat(chat_request: ChatRequest):
-    question = chat_request.question
+    messages = chat_request.messages
     threadId = chat_request.thread_id
     try:
         graph = await getGraph()
