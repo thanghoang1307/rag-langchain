@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from graph import getGraph
+import os
 
 app = FastAPI()
 
@@ -22,5 +23,5 @@ async def chat(chat_request: ChatRequest):
 
 if __name__ == "__main__":
     import uvicorn
-    port = int(os.environ.get("PORT", 8000))  # Lấy cổng từ môi trường, mặc định là 8000
+    port = int(os.environ.get("PORT", 43610))  # Lấy cổng từ môi trường, mặc định là 8000
     uvicorn.run(app, host="0.0.0.0", port=port)

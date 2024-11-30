@@ -11,7 +11,7 @@ from langgraph.graph import END
 from langgraph.prebuilt import ToolNode, tools_condition
 from langgraph.checkpoint.memory import MemorySaver
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 import getpass
 import os
 
@@ -33,7 +33,7 @@ def getGraph():
     docs = text_splitter.split_documents(pages)
 
     # 3. Vector store
-    load_dotenv()
+    # load_dotenv()
 
     # if not os.getenv("OPENAI_API_KEY"):
     #     os.environ["OPENAI_API_KEY"] = getpass.getpass("Enter your OpenAI API key: ")
