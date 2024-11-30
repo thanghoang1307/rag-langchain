@@ -17,7 +17,7 @@ async def chat(chat_request: ChatRequest):
         graph = getGraph()
         config = {"configurable": {"thread_id": threadId}}
         response = await graph.ainvoke({"messages": [{"role": "user", "content": question}]},config=config)
-        return jsonify({"answer": response["messages"][-1].content})
+        return {"answer": response["messages"][-1].content}
     except Exception as e:
         return {"error": str(e)}
 
