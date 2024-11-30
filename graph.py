@@ -48,14 +48,14 @@ async def getGraph():
 
     persist_directory = './docs/chroma/'
 
-    # vectordb = Chroma(persist_directory=persist_directory, embedding_function=embeddings)
-    # print("Loaded existing vector store.")
+    vectordb = Chroma(persist_directory=persist_directory, embedding_function=embeddings)
+    print("Loaded existing vector store.")
 
-    vectordb = Chroma.from_documents(
-            documents=docs,
-            embedding=embeddings,
-            persist_directory=persist_directory
-        )
+    # vectordb = Chroma.from_documents(
+    #         documents=docs,
+    #         embedding=embeddings,
+    #         persist_directory=persist_directory
+    #     )
 
     # try:
     #     # Try to load the existing vector store
