@@ -53,6 +53,8 @@ async def generateVector():
             embedding=embeddings,
             persist_directory=persist_directory
         )
+
+        return {"message": 'done'}
     except Exception as e:
         return {"error": str(e)}
 
