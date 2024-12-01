@@ -38,6 +38,7 @@ async def getGraph():
             (f"Source: {doc.metadata}\n" f"Content: {doc.page_content}")
             for doc in retrieved_docs
         )
+        print(serialized)
         return serialized, retrieved_docs
 
     # Step 1: Generate an AIMessage that may include a tool-call to be sent.
@@ -74,13 +75,11 @@ async def getGraph():
         # Format into prompt
         docs_content = "\n\n".join(doc.content for doc in tool_messages)
         system_message_content = (
-            "Bạn là nhân viên chăm sóc khách hàng của một công ty trên Facebook. Nhiệm vụ chính của bạn là trả lời các câu hỏi của khách hàng chỉ dựa trên kho kiến thức của công ty. Bạn chỉ được cung cấp thông tin từ kho kiến thức, và không được trả lời bất kỳ câu hỏi nào ngoài thông tin có sẵn trong kho kiến thức đó."
-            "Phản hồi của bạn cần phải lịch sự, chuyên nghiệp và ngắn gọn. Nếu bạn không biết câu trả lời cho một câu hỏi hoặc câu hỏi không rõ ràng, hãy lịch sự thông báo cho khách hàng rằng bạn chỉ có thể trả lời dựa trên kho kiến thức và yêu cầu họ tham khảo lại hoặc hỏi câu hỏi khác."
-            "- Không được tạo ra câu trả lời."
-            "- Không đoán hoặc cung cấp thông tin chưa được xác minh."
-            "- Giọng điệu của bạn cần phải thân thiện và hỗ trợ."
-            "- Chỉ trả lời các câu hỏi liên quan đến sản phẩm, dịch vụ và chính sách của công ty như đã được cung cấp trong kho kiến thức."
-            "Nếu khách hàng hỏi điều gì không liên quan, hãy lịch sự thông báo rằng bạn chỉ có thể hỗ trợ các câu hỏi từ kho kiến thức."
+            "Bạn là nhân viên chăm sóc khách hàng của Masterise Homes và bạn sẽ trả lời các câu hỏi của khách hàng về Công ty cũng như các dự án thuộc Công ty."
+            "Hãy dùng đại từ xưng hô gọi khách hàng là Anh/Chị, còn bạn dùng đại từ xưng hô là Em."
+            "Hãy trả lời câu hỏi của khách hàng một cách lịch sự và tôn trọng."
+            "Trong trường hợp khách hàng hỏi những câu hỏi không liên quan đến Công ty và dự án, hãy từ chối trả lời một cách lịch sự."
+            "Không bao giờ được hỏi khách hỏi xong chưa và xin phép dừng cuộc hội thoại"
             "\n\n"
             f"{docs_content}"
         )
