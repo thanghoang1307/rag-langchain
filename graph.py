@@ -26,14 +26,14 @@ async def getGraph():
     print("Loaded existing vector store.")
 
     # Memory
-    llm = ChatOpenAI(model_name="gpt-4o-mini", temperature=0)
+    llm = ChatOpenAI(model_name="gpt-4o", temperature=0)
 
     graph_builder = StateGraph(MessagesState)
 
     @tool(response_format="content_and_artifact")
     def retrieve(query: str):
         """Retrieve information related to a query."""
-        retrieved_docs = vectordb.similarity_search(query, k=2)
+        retrieved_docs = vectordb.similarity_search(query, k=5)
         serialized = "\n\n".join(
             (f"Source: {doc.metadata}\n" f"Content: {doc.page_content}")
             for doc in retrieved_docs
