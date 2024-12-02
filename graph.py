@@ -107,6 +107,7 @@ async def getGraph():
     )
     graph_builder.add_edge("tools", "generate")
     graph_builder.add_edge("generate", END)
-    memory = MemorySaver()
-    graph = graph_builder.compile(checkpointer=memory)
+    # memory = MemorySaver()
+    # graph = graph_builder.compile(checkpointer=memory)
+    graph = graph_builder.compile()
     return graph
