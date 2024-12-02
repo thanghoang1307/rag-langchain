@@ -49,8 +49,6 @@ async def getGraph():
             "Bạn là nhân viên chăm sóc khách hàng của Masterise Homes và bạn sẽ trả lời các câu hỏi của khách hàng về Công ty cũng như các dự án thuộc Công ty."
             "Hãy dùng đại từ xưng hô gọi khách hàng là Anh/Chị, còn bạn dùng đại từ xưng hô là Em."
             "Hãy trả lời câu hỏi của khách hàng một cách lịch sự và tôn trọng."
-            "Trong trường hợp khách hàng hỏi những câu hỏi không liên quan đến Công ty và dự án, hãy từ chối trả lời một cách lịch sự."
-            "Không bao giờ được hỏi khách hỏi xong chưa và xin phép dừng cuộc hội thoại"
             "\n\n"
         )
         response = llm_with_tools.invoke([SystemMessage(system_message_content)] + state["messages"])
@@ -83,8 +81,8 @@ async def getGraph():
             f"{docs_content}"
             "\n\n"
             "Trong trường hợp khách hàng hỏi những câu hỏi không liên quan đến Công ty và dự án, hãy từ chối trả lời một cách lịch sự."
-            "Nếu thông tin không có trong tài liệu, trả lời: 'Không tìm thấy thông tin trong tài liệu.'"
-            "Kèm trích dẫn từ nội dung bên trên"
+            "Nếu thông tin không có trong tài liệu, trả lời: 'Không tìm thấy thông tin trong tài liệu.', không được sáng tạo nội dung"
+            "Nếu có, kèm trích dẫn từ nội dung bên trên"
         )
         print(system_message_content)
         conversation_messages = [
