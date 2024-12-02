@@ -34,12 +34,11 @@ async def getGraph():
     @tool(response_format="content_and_artifact")
     def retrieve(query: str):
         """Retrieve information related to a query."""
-        retrieved_docs = vectordb.similarity_search(query, k=2)
+        retrieved_docs = vectordb.similarity_search(query, k=5)
         serialized = "\n\n".join(
             (f"Source: {doc.metadata}\n" f"Content: {doc.page_content}")
             for doc in retrieved_docs
         )
-        print(serialized)
         return serialized, retrieved_docs
 
     # Step 1: Generate an AIMessage that may include a tool-call to be sent.
@@ -87,6 +86,7 @@ async def getGraph():
             "Nếu thông tin không có trong tài liệu, trả lời: 'Không tìm thấy thông tin trong tài liệu.'"
             "Kèm trích dẫn từ nội dung bên trên"
         )
+        print(system_message_content)
         conversation_messages = [
             message
             for message in state["messages"]
