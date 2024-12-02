@@ -27,14 +27,14 @@ async def getGraph():
     print("Loaded existing vector store.")
 
     # Memory
-    llm = ChatOpenAI(model_name="gpt-4o", temperature=0)
+    llm = ChatOpenAI(model_name="gpt-4o-mini", temperature=0)
 
     graph_builder = StateGraph(MessagesState)
 
     @tool(response_format="content_and_artifact")
     def retrieve(query: str):
         """Retrieve information related to a query."""
-        retrieved_docs = vectordb.similarity_search(query, k=5)
+        retrieved_docs = vectordb.similarity_search(query, k=2)
         serialized = "\n\n".join(
             (f"Source: {doc.metadata}\n" f"Content: {doc.page_content}")
             for doc in retrieved_docs
@@ -81,7 +81,7 @@ async def getGraph():
             f"{docs_content}"
             "\n\n"
             "Trong trường hợp khách hàng hỏi những câu hỏi không liên quan đến Công ty và dự án, hãy từ chối trả lời một cách lịch sự."
-            "Nếu thông tin không có trong tài liệu, trả lời: 'Không tìm thấy thông tin trong tài liệu.', không được sáng tạo nội dung"
+            "Nếu thông tin không có trong tài liệu, trả  lời: 'Không tìm thấy thông tin trong tài liệu.', không được sáng tạo nội dung"
             "Nếu có, kèm trích dẫn từ nội dung bên trên"
         )
         print(system_message_content)
