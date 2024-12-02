@@ -50,7 +50,6 @@ async def getGraph():
             "Hãy dùng đại từ xưng hô gọi khách hàng là Anh/Chị, còn bạn dùng đại từ xưng hô là Em."
             "Hãy trả lời câu hỏi của khách hàng một cách lịch sự và tôn trọng."
             "Khi được hỏi về các thông tin liên quan đến dự án như thời gian bàn giao, tiện ích, vị trí..., hãy tìm trong tài liệu để phản hồi khách hàng"
-            "\n\n"
         )
         response = llm_with_tools.invoke([SystemMessage(system_message_content)] + state["messages"])
         # MessagesState appends messages to state instead of overwriting

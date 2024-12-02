@@ -19,7 +19,7 @@ async def chat(chat_request: ChatRequest):
     threadId = chat_request.thread_id
     try:
         graph = await getGraph()
-        config = {"configurable": {"thread_id": "abc123"}}
+        config = {"configurable": {"thread_id": threadId}}
         response = await graph.ainvoke({"messages": messages},config=config)
         return {"answer": response["messages"][-1].content}
     except Exception as e:
@@ -35,14 +35,14 @@ async def generateVector():
         len(pages)
 
         # 2. Splitter
-        # text_splitter = CharacterTextSplitter(
-        #     separator="\n",
-        #     chunk_size=1000,
-        #     chunk_overlap=150,
-        #     length_function=len
-        # )
+        text_splitter = CharacterTextSplitter(
+            separator="\n",
+            chunk_size=1000,
+            chunk_overlap=150,
+            length_function=len
+        )
 
-        # docs = text_splitter.split_documents(pages)
+        docs = text_splitter.split_documents(pages)
         embeddings = OpenAIEmbeddings(
         model="text-embedding-3-large",
         )
@@ -50,7 +50,7 @@ async def generateVector():
         persist_directory = './docs/chroma/'
 
         vectordb = Chroma.from_documents(
-            documents=pages,
+            documents=docs,
             embedding=embeddings,
             persist_directory=persist_directory
         )
