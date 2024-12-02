@@ -19,7 +19,7 @@ async def chat(chat_request: ChatRequest):
     threadId = chat_request.thread_id
     try:
         graph = await getGraph()
-        config = {"configurable": {"thread_id": threadId}}
+        config = {"configurable": {"thread_id": "abc123"}}
         response = await graph.ainvoke({"messages": messages},config=config)
         return {"answer": response["messages"][-1].content}
     except Exception as e:
