@@ -3,4 +3,4 @@ knowledge_pdf/masterigrandview.pdf
 docs/chroma
 Procfile
 runtime.txt
-backup
+backup/*
