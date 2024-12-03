@@ -1,6 +1,6 @@
 .env
-knowledge_pdf/masterigrandview.pdf
-docs/chroma
+knowledge_pdf/*
+docs/*
 Procfile
 runtime.txt
 backup/*
