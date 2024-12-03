@@ -11,3 +11,7 @@
 4. app.py: API Endpoint
 5. graph.py: Code RAG Chatbot tạo phản hồi từ query của user
 6. requirements.txt: các thư viện cần cài đặt
+
+## Tài liệu tham khảo:
+https://python.langchain.com/docs/tutorials/rag/
+https://python.langchain.com/docs/tutorials/qa_chat_history/
