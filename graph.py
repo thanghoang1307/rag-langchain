@@ -23,7 +23,7 @@ async def getGraph():
 
     persist_directory = './docs/chroma/'
     
-    loader = PyPDFLoader("./mh_docs/masterigrandview.pdf")
+    loader = PyPDFLoader("./knowledge_pdf/masterigrandview.pdf")
     pages = loader.load()
     len(pages)
 
