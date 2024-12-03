@@ -4,3 +4,4 @@ docs/*
 Procfile
 runtime.txt
 backup/*
+sql.py
