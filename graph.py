@@ -21,28 +21,9 @@ async def getGraph():
         model="text-embedding-3-large",
     )
 
-    persist_directory = './docs/chroma/'
-    
-    loader = PyPDFLoader("./knowledge_pdf/masterigrandview.pdf")
-    pages = loader.load()
-    len(pages)
+    persist_directory = '../docs/chroma/'
 
-    # 2. Splitter
-    text_splitter = CharacterTextSplitter(
-        separator="\n",
-        chunk_size=1000,
-        chunk_overlap=150,
-        length_function=len
-    )
-
-    docs = text_splitter.split_documents(pages)
-
-    vectordb = Chroma.from_documents(
-    documents=docs,
-    embedding=embeddings,
-    persist_directory=persist_directory
-    )
-    # vectordb = Chroma(persist_directory=persist_directory, embedding_function=embeddings)
+    vectordb = Chroma(persist_directory=persist_directory, embedding_function=embeddings)
 
     # Memory
     llm = ChatOpenAI(model_name="gpt-4o-mini", temperature=0)
