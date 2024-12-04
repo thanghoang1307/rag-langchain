@@ -10,3 +10,5 @@ pypdf
 pydantic
 python-dotenv
 typing
+numpy
+faiss
