@@ -83,7 +83,6 @@ async def getGraph():
             "Nếu thông tin không có trong tài liệu, trả  lời: 'Không tìm thấy thông tin trong tài liệu.', không được sáng tạo nội dung"
             "Nếu có, kèm trích dẫn từ nội dung bên trên"
         )
-        print(system_message_content)
         conversation_messages = [
             message
             for message in state["messages"]
