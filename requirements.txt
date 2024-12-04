@@ -10,4 +10,3 @@ pypdf
 pydantic
 python-dotenv
 typing
-faiss
