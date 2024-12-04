@@ -21,7 +21,7 @@ async def getGraph():
         model="text-embedding-3-large",
     )
 
-    persist_directory = '../docs/chroma/'
+    persist_directory = 'docs/chroma/'
 
     vectordb = Chroma(persist_directory=persist_directory, embedding_function=embeddings)
 

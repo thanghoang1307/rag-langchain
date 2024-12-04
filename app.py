@@ -29,7 +29,7 @@ async def chat(chat_request: ChatRequest):
 @app.post("/generate-vector")
 async def generateVector():
     try:
-        loader = PyPDFLoader("../knowledge_pdf/masterigrandview.pdf")
+        loader = PyPDFLoader("knowledge_pdf/masterigrandview.pdf")
 
         #Load the document by calling loader.load()
         pages = loader.load()
@@ -48,7 +48,7 @@ async def generateVector():
         model="text-embedding-3-large",
         )
 
-        persist_directory = '../docs/chroma/'
+        persist_directory = 'docs/chroma/'
 
         vectordb = Chroma.from_documents(
             documents=docs,
